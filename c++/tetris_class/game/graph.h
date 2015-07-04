@@ -31,8 +31,8 @@ class Gbase{
                     address[i][j]=0;
                 }
             }*/
-            x=Rand::creatRand()->normal_randNum(8,1,1,15)-1;//-1是因为是以a[0][1]作参照的,假设区域是0-16宽,8是中点
-            y=0;
+            y=Rand::creatRand()->normal_randNum(8,1,1,15)-1;//-1是因为是以a[0][1]作参照的,假设区域是0-16宽,8是中点
+            x=0;
             round=Rand::creatRand()->uniform_randNum(0,3);
             memset(address,0,sizeof(address));//初始化
         }
@@ -149,7 +149,7 @@ class Context{//传说中的工厂模式?????
         void setLocate(const int &ax,const int &ay) const {gbase->setLocate(ax,ay);}
         void getLocate(int &ax,int &ay){gbase->getLocate(ax,ay);}
         void* getArray() const {return gbase->getArray();}
-        void printGraph(Colors &ContextColor){gbase->printGraph(ContextColor);}
+        void printGraph(const Colors &ContextColor){gbase->printGraph(ContextColor);}
 };
 
 #endif
