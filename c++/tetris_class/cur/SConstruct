@@ -1,0 +1,2 @@
+# test for cur class
+Program('cur_test',['cur.cpp','cur.h'])

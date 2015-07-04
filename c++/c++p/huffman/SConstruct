@@ -1,0 +1,5 @@
+env=Environment(CPPDEFINES=[],
+                LIBS=[],
+                CXXFLAGS="-std=c++11"
+                )
+Program('huffmanMake','huffmanTree_test.cpp')

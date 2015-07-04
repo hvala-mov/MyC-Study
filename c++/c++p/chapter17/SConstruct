@@ -1,0 +1,2 @@
+ev=Environment(CC='g++',CCFLAGS='-std=c++11')
+ev.Program('random_test','random_test.cpp')
