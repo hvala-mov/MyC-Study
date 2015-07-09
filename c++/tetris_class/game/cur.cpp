@@ -1,11 +1,10 @@
 #include"cur.h"
 
 void Cur::moveCur(const int &x,const int &y){
-    int i=0;
-    for(i=0;i<y;++i){
+    for(int i=0;i<y;++i){
         cout<<"\33[2C";
     }
-    for(i=0;i<x;++i){
+    for(int i=0;i<x;++i){
         cout<<"\33[1B";
     }
 }

@@ -1,0 +1,9 @@
+import os
+
+ev=Environment(CC='g++',CCFLAGS='-std=c++11')
+ev.Append(CC='g++')
+ev.Append(CCFLAGS=['-std=c++11','-pthread','-Wall','-g'])
+
+libraries=['pthread']
+library_path=''
+ev.Program("game",Glob('*.cpp','*.h'),LIBS=libraries,LIBPATH=library_path)

@@ -12,7 +12,8 @@ using namespace std;
 enum class Control{
     DOWN=0,
     LEFT,
-    RIGHT
+    RIGHT,
+    ROLL
 };
 //const int DOWN=0;
 //const int LEFT=1;
@@ -23,7 +24,9 @@ class Gbase{
         int x;
         int y;//address[0][0]的位置
         int round;//roll的次数,因为图形出现的时候,角度应该是随机的
+        Colors Gcolor;
         int address[4][4];
+        static Colors randColor();
     public:
         Gbase(){
             /*for(int i=0;i<3;++i){
@@ -31,9 +34,10 @@ class Gbase{
                     address[i][j]=0;
                 }
             }*/
-            x=Rand::creatRand()->normal_randNum(8,1,1,15)-1;//-1是因为是以a[0][1]作参照的,假设区域是0-16宽,8是中点
-            y=0;
+            y=Rand::creatRand()->normal_randNum(8,1.0,2,14)-1;//-1是因为是以a[0][1]作参照的,假设区域是0-16宽,8是中点
+            x=1;
             round=Rand::creatRand()->uniform_randNum(0,3);
+            Gcolor=randColor();
             memset(address,0,sizeof(address));//初始化
         }
         int move(const Control &dir);
@@ -42,7 +46,8 @@ class Gbase{
         void setLocate(const int &ax,const int &ay){x=ax;y=ay;}
         void getLocate(int &ax,int &ay) const {ax=x;ay=y;}
         void setRound(const int &ax){round=ax;}
-        void printGraph(const Colors &GraphColor);//打印图形
+        void printGraph();//打印图形
+        void ereaseGraph();
         //获取数组首地址
         void* getArray() const {return (void*)address;}//?void*?在想为啥用void*????????????????
         virtual ~Gbase(){}//************注意************虚析构函数
@@ -51,10 +56,10 @@ class Gbase{
 class Zgraph:public Gbase{
     public:
         void draw(){
-            address[0][0]=1;
-            address[0][1]=1;
-            address[1][1]=1;
-            address[1][2]=1;
+            address[0][0]=int(Gcolor);
+            address[0][1]=int(Gcolor);
+            address[1][1]=int(Gcolor);
+            address[1][2]=int(Gcolor);
             for(int i=0;i<round;++i){
                 roll();
             }
@@ -63,10 +68,10 @@ class Zgraph:public Gbase{
 class Tgraph:public Gbase{
     public:
         void draw(){
-            address[0][0]=1;
-            address[0][1]=1;
-            address[0][2]=1;
-            address[1][1]=1;
+            address[0][0]=int(Gcolor);
+            address[0][1]=int(Gcolor);
+            address[0][2]=int(Gcolor);
+            address[1][1]=int(Gcolor);
             for(int i=0;i<round;++i){
                 roll();
             }
@@ -76,10 +81,10 @@ class Tgraph:public Gbase{
 class Ograph:public Gbase{
     public:
         void draw(){
-            address[0][0]=1;
-            address[0][1]=1;
-            address[1][0]=1;
-            address[1][1]=1;
+            address[0][0]=int(Gcolor);
+            address[0][1]=int(Gcolor);
+            address[1][0]=int(Gcolor);
+            address[1][1]=int(Gcolor);
             for(int i=0;i<round;++i){
                 roll();
             }            
@@ -89,10 +94,10 @@ class Ograph:public Gbase{
 class Lgraph:public Gbase{
     public:
         void draw(){
-            address[0][0]=1;
-            address[0][1]=1;
-            address[1][1]=1;
-            address[2][1]=1;
+            address[0][0]=int(Gcolor);
+            address[0][1]=int(Gcolor);
+            address[1][1]=int(Gcolor);
+            address[2][1]=int(Gcolor);
             for(int i=0;i<round;++i){
                 roll();
             }
@@ -101,13 +106,13 @@ class Lgraph:public Gbase{
 class Igraph:public Gbase{
     public:
         Igraph(){
-            x=Rand::creatRand()->normal_randNum(8,1.0,1,14)-1;//I比较长...
+            x=Rand::creatRand()->normal_randNum(8,1.0,1,13)-1;//I比较长...
         }
         void draw(){
-            address[0][0]=1;
-            address[1][0]=1;
-            address[2][0]=1;
-            address[3][0]=1;
+            address[0][0]=int(Gcolor);
+            address[1][0]=int(Gcolor);
+            address[2][0]=int(Gcolor);
+            address[3][0]=int(Gcolor);
             for(int i=0;i<round;++i){
                 roll();
             }            
@@ -117,8 +122,10 @@ class Igraph:public Gbase{
 class Context{//传说中的工厂模式?????
     private:
         Gbase *gbase;
+        static char randChar();
     public:
-        Context(const char &cType){
+        Context(){
+            auto cType=randChar();
             switch(cType){
                 case 'Z':
                     gbase=new Zgraph();
@@ -149,7 +156,8 @@ class Context{//传说中的工厂模式?????
         void setLocate(const int &ax,const int &ay) const {gbase->setLocate(ax,ay);}
         void getLocate(int &ax,int &ay){gbase->getLocate(ax,ay);}
         void* getArray() const {return gbase->getArray();}
-        void printGraph(const Colors &ContextColor){gbase->printGraph(ContextColor);}
+        void printGraph(){gbase->printGraph();}
+        void ereaseGraph(){gbase->ereaseGraph();}
 };
 
 #endif

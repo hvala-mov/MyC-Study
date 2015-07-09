@@ -1,0 +1,111 @@
+#include"game.h"
+
+shared_ptr<Game> Game::instance;
+
+shared_ptr<Context> Game::graph;
+
+Game::Game(const initialism&){
+    memset(GameSpace,0,sizeof(GameSpace));
+    for(int i=0;i<HIGHT;++i){
+        for(int j=0;j<WIDTH;++j){
+            if(0==i||0==j||HIGHT-1==i||WIDTH-1==j){
+                GameSpace[i][j]=1;
+            }
+        }
+    }
+}
+
+shared_ptr<Game> Game::creatGame(){
+    if(!instance){
+        instance=make_shared<Game>(initialism{});
+    }
+    return instance;
+}
+
+void Game::printGameSpace(){
+    CubePoint point;
+    point.setColor(Colors::BLUE);
+    for(int i=0;i<HIGHT;++i){
+        for(int j=0;j<WIDTH;++j){
+            if(1==GameSpace[i][j]){
+                point.setLocate(i,j);
+                point.printPoint();
+            }
+        }
+    }
+}//I don't what happied there some problem in printing gamespace
+
+char Game::randChar(){
+    switch(Rand::creatRand()->uniform_randNum(0,4)){
+        case 0:
+            return 'Z';
+        case 1:
+            return 'T';
+        case 2:
+            return 'O';
+        case 3:
+            return 'I';
+        case 4:
+            return 'L';
+        default:
+            return ' ';
+    }
+}
+Colors Game::randColor(){
+    switch(Rand::creatRand()->uniform_randNum(0,5)){
+        case 0:
+            return Colors::RED;
+        case 1:
+            return Colors::GREEN;
+        case 2:
+            return Colors::YELLOW;
+        case 3:
+            return Colors::WHITE;
+        case 4:
+            return Colors::PURPLE;
+        case 5:
+            return Colors::DEEP_GREEN;
+        default:
+            return Colors::CLEAR;
+    }
+}
+void Game::creatFigure(){
+    if(!graph){
+        cout<<"yes"<<endl;
+    }
+    //graph=make_shared<Context>(randChar()); 
+    graph=make_shared<Context>('L'); 
+    if(graph){
+        cout<<"yes"<<endl;
+    }
+}
+void Game::printFigure(){
+    graph->printGraph(randColor());
+    //cout<<int(randColor())<<endl;
+    //graph->printGraph(Colors::RED);
+}
+
+
+void* Fun(void *arg){
+    shared_ptr<Game> game=Game::creatGame();
+    system("clear");
+    //system("stty -icanon -echo");
+    //game->printGameSpace();
+    game->creatFigure();
+    game->printFigure();
+    Context c('L');
+    c.draw();
+    c.setLocate(3,3);
+    //auto a=Colors::RED;
+    c.printGraph(Colors::RED);
+    //cout<<"hello,world!"<<endl;
+    return ((void*)0);
+}
+
+int main (){
+    pthread_t pid;
+    pthread_create(&pid,NULL,Fun,NULL);
+    while(1);
+    //system("stty -icanon -echo");
+    return 0;
+}

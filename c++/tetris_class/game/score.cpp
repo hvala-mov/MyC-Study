@@ -8,21 +8,21 @@ Score::Score(istream& is){
 void Score::printMessage(){
     Cur c;
     CubePoint p;
-    p.setLocate(2,19);
+    p.setLocate(10,19);
     p.setColor(Colors::WHITE);
     p.printPoint();
     
     c.saveCur();
-    c.moveCur(2,21);
+    c.moveCur(10,21);
     cout<<"player:"<<player;
     c.resumeCur();
 
-    p.setLocate(4,19);
+    p.setLocate(12,19);
     p.setColor(Colors::GREEN);
     p.printPoint();
 
     c.saveCur();
-    c.moveCur(4,21);
+    c.moveCur(12,21);
     cout<<"score:"<<score;
     c.resumeCur();
 }

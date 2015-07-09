@@ -37,6 +37,14 @@ void CubePoint::printPoint(){
     cur.resumeCur();
 }
 
+
+void CubePoint::ereasePoint(){
+    Cur cur;
+    cur.saveCur();
+    cur.moveCur(x,y);
+    cout<<"  ";
+    cur.resumeCur();
+}
 /*
 int main (){
     CubePoint p;

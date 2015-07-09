@@ -22,10 +22,11 @@ class CubePoint{
         CubePoint():color(Colors::CLEAR),x(0),y(0){}
         CubePoint(const Colors &ac,const int &ax,const int &ay):color(ac),x(ax),y(ay){}
         void setLocate(const int &ax,const int &ay){x=ax;y=ay;}
-        void setColor(const Colors &c){color=c;}
+        void setColor(Colors c){color=c;}
         Colors getColor(){return color;}
         void getLocate(int &ax,int &ay){ax=x;ay=y;}
         void printPoint();
+        void ereasePoint();
 };
 
 #endif

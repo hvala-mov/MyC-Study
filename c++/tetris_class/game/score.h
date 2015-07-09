@@ -17,7 +17,7 @@ class Score{
         Score(const string &name):player(name),score(0){}
         Score(istream&);
         void setName(const string &name){player=name;}
-        void setScore(const int &s){score=s;}
+        void setScore(const int &s){score+=s;}
         void printMessage();
 };
 

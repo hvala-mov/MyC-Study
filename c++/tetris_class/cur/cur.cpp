@@ -19,14 +19,17 @@ void Cur::resumeCur(){
 }
 
 //test for this class
-/*int main (){
+int main (){
     Cur cur;
     system("clear");
     cur.saveCur();
-    cur.moveCur(10,9);
-    cout<<"a";
+    cur.moveCur(10,5);
+    cout<<"**";
+    //cout<<"\033[8m";
+    cout<<"\033[45;32m        \033[0m";
     cur.resumeCur();
+    //cout<<"\033[2J";
     return 0;
 }
-*/
+
 
